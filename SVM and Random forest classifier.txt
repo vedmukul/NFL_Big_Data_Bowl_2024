@@ -1,0 +1,135 @@
+Formulas, Logic, and Important Functions:
+
+1. Gradient Descent:
+      - Formula: w = w - learning_rate * (2 * lambda_param * w - X^T * (y - X * w))
+      - Used to optimize the model parameters (w and b) by minimizing the objective function.
+
+2. Hinge Loss:
+      - Formula: max(0, 1 - y * (w^T * x - b))
+      - Measures the classification error for each training example.
+
+3. L2 Regularization:
+      - Formula: lambda_param * ||w||^2
+      - Adds a penalty term to the objective function to prevent overfitting.
+
+4. Prediction:
+      - Formula: sign(w^T * x - b)
+      - Determines the predicted class label for a given input vector x.
+
+5. Accuracy:
+      - Formula: (number of correct predictions) / (total number of predictions)
+      - Evaluates the performance of the model by calculating the proportion of correct predictions.
+
+6. Standardization:
+      - Formula: (X - mean) / standard_deviation
+      - Scales the features to have zero mean and unit variance, which can improve the convergence of gradient descent.
+
+7. One-hot Encoding:
+      - Converts categorical variables into binary vectors, allowing them to be used as features in the model.
+
+Code Description:
+The code implements a Support Vector Machine (SVM) classifier from scratch using Python and NumPy. The main components of the code are:
+
+1. SVM Class: Defines the SVM model with methods for initialization, training (fit), and prediction (predict).
+2. Data Preparation: Loads and preprocesses the data, including feature selection, train-test split, one-hot encoding, and standardization.
+3. Model Training: Creates an instance of the SVM classifier and trains it using the fit method on the training data.
+4. Model Evaluation: Makes predictions on the test set using the predict method and calculates the accuracy of the model.
+
+Important functions include:
+- train_test_split: Splits the data into training and test sets.
+- standardize: Standardizes the numerical features.
+- fit: Trains the SVM model using gradient descent.
+- predict: Makes predictions on new data using the learned model parameters.
+
+Questions and Answers:
+
+1. Why did you select this model?
+      - SVM is a powerful and versatile algorithm for both linear and nonlinear classification tasks.
+      - It can effectively handle high-dimensional data and provide good generalization performance.
+      - SVM aims to find the optimal hyperplane that maximally separates different classes, making it suitable for binary classification problems like predicting successful tackles.
+
+2. Why this specific accuracy metric?
+      - Accuracy is a commonly used metric for evaluating the performance of classification models.
+      - It provides an intuitive measure of how well the model predicts the correct class labels.
+      - In the context of predicting tackles, accuracy gives a direct indication of the proportion of correctly classified tackles.
+
+3. Why cross-validation and regularization are/aren't necessary?
+      - Cross-validation is not used in the current code, but it can be beneficial for assessing the model's performance and selecting the best hyperparameters.
+      - Regularization (L2 regularization) is used in the SVM model through the lambda_param parameter.
+      - Regularization helps prevent overfitting by adding a penalty term to the objective function, controlling the model's complexity.
+      - It is necessary to strike a balance between fitting the training data well and generalizing to unseen data.
+
+4. Which optimizations were used and why?
+      - Gradient descent optimization is used to update the model parameters (w and b) iteratively.
+      - It minimizes the objective function, which consists of the hinge loss and the L2 regularization term.
+      - Gradient descent allows the model to learn the optimal parameters that minimize the classification error.
+
+5. How you engineered your features:
+      - Interaction term: Created a new feature by multiplying 'down' and 'yardsToGo' to capture their interaction effect.
+      - Body Mass Index (BMI): Calculated the player's BMI based on their weight and height, providing a measure of their body composition.
+      - One-hot encoding: Applied to categorical features to convert them into binary vectors suitable for the SVM model.
+      - Standardization: Scaled the numerical features to have zero mean and unit variance, ensuring they have similar ranges and improving convergence.
+
+
+Formulas, Logic, and Important Functions:
+
+1. Gini Impurity:
+      - Formula: Gini(t) = 1 - Σ(pi^2), where pi is the proportion of instances belonging to class i at node t.
+      - Used to measure the impurity of a node in the decision tree.
+
+2. Information Gain:
+      - Formula: IG(t) = H(t) - ΣP(ti)H(ti), where H(t) is the entropy at node t, ti are the child nodes, and P(ti) is the proportion of instances at child node ti.
+      - Used to determine the best split at each node of the decision tree.
+
+3. Bootstrap Aggregating (Bagging):
+      - Randomly selects subsets of the training data with replacement to create multiple decision trees.
+      - Helps to reduce overfitting and improve generalization.
+
+4. Feature Importance:
+      - Computed based on the decrease in impurity (Gini or information gain) achieved by each feature across all trees in the forest.
+      - Provides insights into the relative importance of each feature in the model.
+
+Important functions:
+- `DecisionTree` class: Implements a single decision tree with methods for fitting and prediction.
+- `RandomForest` class: Implements the Random Forest classifier by creating an ensemble of decision trees.
+- `_best_split`: Finds the best feature and threshold for splitting a node based on the Gini impurity.
+- `_grow_tree`: Recursively grows the decision tree by splitting nodes until the maximum depth is reached or the minimum number of samples is reached.
+- `fit`: Trains the Random Forest classifier by fitting multiple decision trees on random subsets of the data.
+- `predict`: Makes predictions by aggregating the predictions of all decision trees in the forest.
+
+Code Description:
+The code implements a Random Forest classifier from scratch using Python. It consists of two main classes: `DecisionTree` and `RandomForest`. The `DecisionTree` class represents a single decision tree and contains methods for fitting the tree to the training data and making predictions. The `RandomForest` class represents the Random Forest classifier and creates an ensemble of decision trees.
+
+The code starts by loading and preparing the data, splitting it into training and test sets, and applying one-hot encoding and standardization to the features. Then, an instance of the Random Forest classifier is created, specifying the number of trees, maximum depth, minimum samples to split, and the number of samples for each tree (if using bootstrapping).
+
+The Random Forest classifier is trained using the `fit` method, which fits multiple decision trees on random subsets of the training data. Predictions are made using the `predict` method, which aggregates the predictions of all decision trees in the forest.
+
+Finally, the model's performance is evaluated using accuracy, and the feature importances are computed and plotted.
+
+Questions and Answers:
+
+1. Why did you select this model?
+      - Random Forest is a powerful ensemble learning method that combines multiple decision trees to make accurate predictions.
+      - It is known for its robustness, ability to handle high-dimensional data, and its effectiveness in capturing complex relationships between features.
+      - Random Forest is less prone to overfitting compared to individual decision trees, as it aggregates the predictions of multiple trees trained on different subsets of the data.
+
+2. Why this specific accuracy metric?
+      - Accuracy is a commonly used metric for classification problems, as it measures the proportion of correct predictions made by the model.
+      - In the code, the accuracy is calculated as the ratio of the number of correct predictions to the total number of predictions.
+      - Accuracy provides an intuitive understanding of the model's performance and is suitable when the classes are balanced.
+
+3. Why cross-validation and regularization are/aren't necessary?
+      - Cross-validation is not explicitly used in the provided code. However, it can be beneficial to assess the model's performance and generalization ability by splitting the data into multiple folds and evaluating the model on each fold.
+      - Regularization is not necessary for Random Forest, as it inherently reduces overfitting through the ensemble of multiple decision trees and the random selection of features at each split.
+
+4. Which optimizations were used and why?
+      - The code does not include any specific optimizations for the Random Forest classifier.
+      - However, some common optimizations that could be considered are:
+          - Adjusting the number of trees (`n_trees`) to balance the trade-off between model complexity and computational efficiency.
+          - Tuning the `max_depth` parameter to control the maximum depth of each decision tree, which can help prevent overfitting.
+          - Setting the `min_samples_split` parameter to determine the minimum number of samples required to split an internal node, which can regulate the growth of the trees.
+
+5. How you engineered your features:
+      - The code performs feature engineering by creating an interaction term between 'down' and 'yardsToGo' (`down_yards_interaction`) and calculating the player's Body Mass Index (`player_bmi`).
+      - One-hot encoding is applied to categorical features using `pd.get_dummies` to convert them into numerical representations suitable for the Random Forest classifier.
+      - The numerical features are standardized using `StandardScaler` to ensure they have zero mean and unit variance, which can improve the model's performance and convergence.
